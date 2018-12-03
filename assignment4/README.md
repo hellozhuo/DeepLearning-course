@@ -40,7 +40,7 @@ Now in the /mymodel/cifar10-data, there would be the following files: *cifar10_t
 Create a file with name "mymodel.py" and build your model there.<br>
 
 First, the input of the model should definitely be the `images`, which has the shape of [batch_size, height, width, channels], i.e., [64, 32, 32, 3] since we now just set the batch size to 64<br> 
-We then begin to input the `images` to the structure, the first thing we come across here would be the first Conv3-8 layer, which has kernel size of 2 x 2, stride of 1 and output channels of 8. So when we type:
+We then begin to input the `images` to the structure, the first thing we come across here would be the first Conv3-8 layer, which has kernel size of 3 x 3, stride of 1 and output channels of 8. So when we type:
 ```python
   conv_l_1 = conv_layer(images, 3, 8, "layer1")
 ```
