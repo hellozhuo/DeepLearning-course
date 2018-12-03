@@ -131,7 +131,7 @@ and fc_layer
       return weights, biases
 ```
 
-One can find that there is a extra `regularizer` for the `weights`, which is used to prevent the values of weights being too large. In CNN, it is import to import such regularizers for the parameters in some ocassions, since values of parameters can be easily uncontrollable<br> 
+One can find that there is a extra `regularizer` for the `weights`, which is used to prevent the values of weights being too large. In CNN, it is important to import such regularizers for the parameters in some ocassions, since values of parameters can be easily uncontrollable<br> 
 
 Untill now, we need to calculate the loss and accuracy of the model.<br>
 ```python
