@@ -10,9 +10,6 @@ slim = tf.contrib.slim
 ##############################
 # Flags most related to you #
 ##############################
-tf.app.flags.DEFINE_boolean('clone_on_cpu', False,
-                            'If no GPU, using --clone_on_cpu=True')
-
 tf.app.flags.DEFINE_integer(
     'batch_size', 64, 'The number of samples in each batch.')
 

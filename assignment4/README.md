@@ -62,7 +62,7 @@ Now, take a look at the function `conv_layer`
       filters = tf.get_variable('filters', 
               shape=[filter_size, filter_size, in_channels, out_channels],
               initializer=tf.truncated_normal_initializer(mean=0.0, stddev=5e-2),
-              trainable=trainable,
+              trainable=trainable, # trainable on the right hand is a global variable
               regularizer=None)
 
       biases = tf.get_variable('biases',
@@ -120,7 +120,7 @@ and fc_layer
               shape=[in_size, out_size],
               initializer=tf.truncated_normal_initializer(mean=0.0, stddev=5e-2),
               trainable=trainable,
-              regularizer=regularizer)
+              regularizer=regularizer) # regularizer on the right hand is a global variable
 
       biases = tf.get_variable('biases',
               shape=[out_size],
