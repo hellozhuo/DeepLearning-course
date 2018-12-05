@@ -8,6 +8,7 @@ class Mymodel:
     """
 
     def __init__(self, weight_decay=0.004, dropout=0.5):
+    #def __init__(self, weight_decay=0.0, dropout=0.5):
 
         self.dropout = dropout
         self.regularizer = tf.contrib.layers.l2_regularizer(weight_decay)
@@ -38,8 +39,9 @@ class Mymodel:
 
         with tf.name_scope('Block-FC'):
             self.fc_l_13 = self.fc_layer(self.pool_l_12, 1024, "layer13")
+            self.fc_l_13 = tf.nn.relu(self.fc_l_13, 'layer13_relu')
+            self.fc_l_13 = tf.nn.dropout(self.fc_l_13, self.dropout)
             self.fc_l_14 = self.fc_layer(self.fc_l_13, 10, "layer14")
-            # self.fc_l_14 = tf.nn.relu(self.fc_l_14)
 
         with tf.name_scope('Block-OUTPUT'):
             self.softmax_l_15 = tf.nn.softmax(self.fc_l_14, name="layer15")

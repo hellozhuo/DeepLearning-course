@@ -97,7 +97,7 @@ images = (images - 127) / 128 * 4
 # configure learning rate and optimizer
 # global_step = tf.train.create_global_step()
 
-model = Mymodel()
+model = Mymodel(dropout=1.0)
 model.build(images, labels, train_mode=False)
 acc = model.accuracy
 loss = model.total_loss
