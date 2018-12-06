@@ -8,13 +8,13 @@ Let's say, the structure of the model is:
 | Conv3-8 | Layer-2 |
 | Conv3-8 | Layer-3 |
 | maxpool | Layer-4 |
-| Conv3-8 | Layer-5 |
-| Conv3-8 | Layer-6 |
-| Conv3-8 | Layer-7 |
+| Conv3-64 | Layer-5 |
+| Conv3-64 | Layer-6 |
+| Conv3-64 | Layer-7 |
 | maxpool | Layer-8 |
-| Conv3-8 | Layer-9 |
-| Conv3-8 | Layer-10 |
-| Conv3-8 | Layer-11 |
+| Conv3-64 | Layer-9 |
+| Conv3-64 | Layer-10 |
+| Conv3-64 | Layer-11 |
 | maxpool | Layer-12 |
 | FC-1024 | Layer-13 |
 | FC-10 | Layer-14 |
@@ -178,7 +178,7 @@ Assuming that you have trained the model and save the log file to /mymodel/model
 tensorboard --logdir='/mymodel/model/log'
 ```
 then open the link created in your browser.<br>
-The results of visualization are like this<br>
+The results of tensorboard are like this<br>
 ![](https://github.com/SuZhuo/DeepLearning-course/raw/master/assignment4/images/graph.jpg)
 ![](https://github.com/suzhuo/DeepLearning-course/raw/master/assignment4/images/scale1.jpg)
 ![](https://github.com/suzhuo/DeepLearning-course/raw/master/assignment4/images/scale2.jpg)
