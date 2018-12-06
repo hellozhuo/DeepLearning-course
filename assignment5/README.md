@@ -1,4 +1,4 @@
-# Build own model using tensorflow api 
+# Build own model using tensorflow api and filters and layers visualization
 
 Let's say, the structure of the model is:
 
@@ -45,13 +45,13 @@ python model_visualize.py \
   --visual_dir='/mymodel/visual_results'
 ```
 The results of visualization are like this<br>
-**con_weights_layer5_channel_0**(show only image of the first channel)<br>
+**con_weights_layer5_channel_0** (show only image of the first channel)<br>
 ![con_weights_layer5](images/conv_weights/layer5/layer5-0.png)
 
 **conv_output_layer5**<br>
 ![conv_output_layer5](images/conv_output/layer5/layer5.png)
 
-**con_weights_layer11_channel_33**(image of channel 34)<br>
+**con_weights_layer11_channel_33** (image of channel 34)<br>
 ![con_weights_layer11](images/conv_weights/layer11/layer11-33.png)
 
 **conv_output_layer11**<br>
