@@ -71,14 +71,8 @@ FLAGS = tf.app.flags.FLAGS
 ##############################
 images, labels = utils.get_data(FLAGS.data_dir, 'train', FLAGS.batch_size)
 
-# resnet = Model(
-#     num_classes=10, num_filters=16, kernel_size=3, conv_stride=1,
-#     first_pool_size=None, first_pool_stride=None, 
-#     block_sizes=[8, 8, 8], block_strides=[1, 2, 2],
-#     data_format='channels_first')
-
 resnet = Model(
-    num_classes=10, num_filters=32, kernel_size=3, conv_stride=1,
+    num_classes=10, num_filters=64, kernel_size=3, conv_stride=1,
     first_pool_size=None, first_pool_stride=None, 
     block_sizes=[2, 2, 2, 2], block_strides=[1, 2, 2, 2],
     data_format='channels_first')
