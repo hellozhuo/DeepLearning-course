@@ -3,8 +3,12 @@ import os
 import tensorflow as tf 
 import time
 from datetime import datetime
-from myresnet import Model
-import utils
+from model_table2 import Model
+
+import sys 
+sys.path.append(os.path.dirname(os.getcwd()))
+
+from utils import utils
 
 TRAIN_SAMPLES = 40000 
 VAL_SAMPLES = 10000
@@ -61,30 +65,42 @@ tf.app.flags.DEFINE_integer(
 
 FLAGS = tf.app.flags.FLAGS
 
-
 ##############################
 #       Build ResNet         #
 ##############################
 images, labels = utils.get_data(FLAGS.data_dir, 'train', FLAGS.batch_size)
 
-# resnet = Model(
-#     num_classes=10, num_filters=16, kernel_size=3, conv_stride=1,
-#     first_pool_size=None, first_pool_stride=None, 
-#     block_sizes=[8, 8, 8], block_strides=[1, 2, 2],
-#     data_format='channels_first')
+model_table2 = Model(num_classes=10, data_format='channels_first')
 
-resnet = Model(
-    num_classes=10, num_filters=32, kernel_size=3, conv_stride=1,
-    first_pool_size=None, first_pool_stride=None, 
-    block_sizes=[2, 2, 2, 2], block_strides=[1, 2, 2, 2],
-    data_format='channels_first')
+initial_conv = [64, 3, 1]
+configuration = [
+    {
+      'name': 'block_layer1',
+      'filters': [[64, 64, 128]] * 2,
+      'kernel_sizes': [[3, 3, 1]] * 2,
+      'strides': [[1, 1, 2], [1, 1, 1]]},
+    {
+      'name': 'block_layer2',
+      'filters': [[64, 128, 128]] * 3,
+      'kernel_sizes': [[1, 3, 3]] * 3,
+      'strides': [[1, 2, 1]] + [[1, 1, 1]] * 2}, 
+    {
+      'name': 'block_layer3',
+      'filters': [[128, 128, 128]] * 4,
+      'kernel_sizes': [[1, 3, 3]] * 4,
+      'strides': [[1, 1, 1]] * 4},
+    {
+      'name': 'block_layer4',
+      'filters': [[512, 512]] * 2,
+      'kernel_sizes': [[3, 3]] * 2,
+      'strides': [[2, 1], [1, 1]]}]
 
 ############################################
 # Loss, Accuracy, Train, Summary and Saver #
 ############################################
 weight_decay = 2e-4
 
-logits = resnet(images, training=True)
+logits = model_table2(images, initial_conv, configuration, training=True, show=True)
 
 cross_entropy = utils.get_cross_entropy(logits, labels)
 accuracy = utils.get_accuracy(logits, labels)
@@ -115,12 +131,12 @@ saver = tf.train.Saver(tf.trainable_variables())
 ############################################
 var_exclude = [v.name for v in tf.local_variables()]
 images_val, labels_val = utils.get_data(FLAGS.data_dir, 'validation', FLAGS.batch_size)
-logits_val = resnet(images_val, training=False)
+logits_val = model_table2(images_val, initial_conv, configuration, training=False)
 accuracy_val = utils.get_accuracy(logits_val, labels_val)
 
 # clear former accuracy information for validation
 var_to_refresh = [v for v in tf.local_variables() if v.name not in var_exclude]
-init_local_val = tf.initialize_variables(var_to_refresh)
+init_local_val = tf.variables_initializer(var_to_refresh)
 
 ############################################
 #           Using    Session               #
@@ -142,7 +158,7 @@ sess.run(init_local)
 #           Let's start running            #
 ############################################
 epoch_steps = int(TRAIN_SAMPLES / FLAGS.batch_size)
-print('number of steps each epoch: ', epoch_steps)
+print('Number of steps for each epoch: ', epoch_steps)
 epoch_index = 0
 max_steps = FLAGS.epoch_number * epoch_steps
 ori_time = time.time()
