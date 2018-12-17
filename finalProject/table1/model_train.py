@@ -106,7 +106,7 @@ grads = optimizer.compute_gradients(total_loss)
 train_op = optimizer.apply_gradients(grads, global_step=global_step)
 summary_op = tf.summary.merge_all()
 
-saver = tf.train.Saver(tf.trainable_variables())
+saver = tf.train.Saver(tf.global_variables())
 
 ############################################
 #           For   validation               #
